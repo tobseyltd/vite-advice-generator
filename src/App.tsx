@@ -7,7 +7,7 @@ const App = () => {
   const [advice, setAdvice] = useState<Slip>();
   const [error, setError] = useState("");
 
-  useEffect(() => {
+  const adviceFunc = () => {
     const { request, cancel } = AdviceService.getAdvice();
     request
       .then((RESPONSE) => setAdvice(RESPONSE.data))
@@ -17,6 +17,10 @@ const App = () => {
       });
 
     return () => cancel();
+  };
+
+  useEffect(() => {
+    adviceFunc();
   }, []);
 
   return (
@@ -25,7 +29,7 @@ const App = () => {
       <AdviceGenerator
         id={Number(advice?.slip.id)}
         advice={String(advice?.slip.advice)}
-        randomAdvice={AdviceService.getAdvice}
+        randomAdvice={adviceFunc}
       />
     </>
   );
