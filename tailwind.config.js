@@ -12,6 +12,7 @@ export default {
       "grayish-blue": "hsl(217, 19%, 38%)",
       "dark-grayish-blue": "hsl(217, 19%, 24%)",
       "dark-blue": "hsl(218, 23%, 16%)",
+      red: "rgb(153 27 27)",
     },
   },
   plugins: [],

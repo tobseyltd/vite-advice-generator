@@ -1,26 +1,59 @@
-import React from "react";
+import axios, { CanceledError } from "axios";
+import { useEffect, useState } from "react";
+import AdviceGenerator from "./components/AdviceGenerator";
+
+interface Slip {
+  slip: {
+    advice: string;
+    id: number;
+  };
+}
 
 const App = () => {
+  const [advice, setAdvice] = useState<Slip>();
+  const [error, setError] = useState("");
+
+  const reload = () => {
+    const controller = new AbortController();
+
+    axios
+      .get<Slip>("https://api.adviceslip.com/advice", {
+        signal: controller.signal,
+      })
+      .then((RESPONSE) => setAdvice(RESPONSE.data))
+      .catch((ERROR) => {
+        if (ERROR instanceof CanceledError) return;
+        setError(ERROR.message);
+      });
+
+    return () => controller.abort();
+  };
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    axios
+      .get<Slip>("https://api.adviceslip.com/advice", {
+        signal: controller.signal,
+      })
+      .then((RESPONSE) => setAdvice(RESPONSE.data))
+      .catch((ERROR) => {
+        if (ERROR instanceof CanceledError) return;
+        setError(ERROR.message);
+      });
+
+    return () => controller.abort();
+  }, []);
+
   return (
-    <div className="flex h-screen w-screen flex-col items-center justify-center bg-dark-grayish-blue p-5">
-      <div className="container mx-auto flex flex-col items-center rounded-3xl bg-grayish-blue/50 p-16">
-        <p className="mb-5 text-sm tracking-widest text-neon-green">
-          ADVICE #117
-        </p>
-        <blockquote className="mb-5 text-center text-4xl font-bold text-light-cyan">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illo
-          voluptatibus velit in saepe quibusdam aliquam
-        </blockquote>
-        <img
-          className="mt-5"
-          src="../src/assets/adviceGenerator/pattern-divider-desktop.svg"
-          alt=""
-        />
-      </div>
-      <div className="-mt-8 rounded-full bg-neon-green p-5">
-        <img src="../src/assets/adviceGenerator/icon-dice.svg" alt="" />
-      </div>
-    </div>
+    <>
+      {error && <p className="text-red">{error}</p>}
+      <AdviceGenerator
+        id={Number(advice?.slip.id)}
+        advice={String(advice?.slip.advice)}
+        randomAdvice={reload}
+      />
+    </>
   );
 };
 
