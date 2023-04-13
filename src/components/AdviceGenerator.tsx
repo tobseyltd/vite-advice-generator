@@ -1,5 +1,6 @@
 import tw from "tailwind-styled-components";
 import icon from "../assets/adviceGenerator/icon-dice.svg";
+import divider from "../assets/adviceGenerator/pattern-divider-desktop.svg";
 
 interface Props {
   id: number;
@@ -17,11 +18,7 @@ const AdviceGenerator = ({ advice, id, randomAdvice }: Props) => {
 
         <BQadvice>"{advice}"</BQadvice>
 
-        <img
-          className="mt-5"
-          src="../src/assets/adviceGenerator/pattern-divider-desktop.svg"
-          alt=""
-        />
+        <img className="mt-5" src={divider} alt="" />
       </DIVcontainer>
 
       <DIVbuttonWrapper onClick={randomAdvice}>
