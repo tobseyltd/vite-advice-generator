@@ -1,4 +1,5 @@
 import tw from "tailwind-styled-components";
+import icon from "../assets/adviceGenerator/icon-dice.svg";
 
 interface Props {
   id: number;
@@ -24,7 +25,7 @@ const AdviceGenerator = ({ advice, id, randomAdvice }: Props) => {
       </DIVcontainer>
 
       <DIVbuttonWrapper onClick={randomAdvice}>
-        <img src="../src/assets/adviceGenerator/icon-dice.svg" alt="" />
+        <img src={icon} alt="" />
       </DIVbuttonWrapper>
     </DIVwrapper>
   );
@@ -48,7 +49,7 @@ const DIVwrapper = tw.div`
 const DIVcontainer = tw.div`
     container
     md:w-7/12
-    xl:w-3/12 
+    xl:w-4/12 
     mx-auto 
     flex 
     flex-col 
