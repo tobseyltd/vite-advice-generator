@@ -46,7 +46,7 @@ const DIVwrapper = tw.div`
 const DIVcontainer = tw.div`
     container
     md:w-7/12
-    xl:w-4/12 
+    xl:w-5/12 
     mx-auto 
     flex 
     flex-col 
